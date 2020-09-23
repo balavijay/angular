@@ -40,7 +40,7 @@ export class DashboardComponent implements OnInit {
     this.AvailableFunds         = 1200;
 
     this.Clients = [
-      "ABC Infotech", "Brila Corp", "Cabbies"
+      "ABC Infotech", "Brila Corporation", "Cabbies Chase"
     ];
 
     this.Projects = [
@@ -88,9 +88,33 @@ export class DashboardComponent implements OnInit {
 
         ]
       }
-    ]
+    ];
 
 
+  }
+
+  onProjectChange($event) {
+    
+
+    if($event.target.innerHTML.trim() == this.Projects[0] ) {
+    
+      this.ProjectCost = 100;
+      this.CurrentExpenditure = 110;
+      this.AvailableFunds = -10;
+
+    } else if($event.target.innerHTML.trim() == this.Projects[1] ) {
+
+      this.ProjectCost = 200;
+      this.CurrentExpenditure = 220;
+      this.AvailableFunds = -20;
+      
+    } else if($event.target.innerHTML.trim() == this.Projects[2] ) {
+
+      this.ProjectCost = 440;
+      this.CurrentExpenditure = 220;
+      this.AvailableFunds = 220;
+      
+    }  
   }
 
 }

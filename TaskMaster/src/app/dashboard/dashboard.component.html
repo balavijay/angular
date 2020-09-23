@@ -8,9 +8,10 @@
 <h5>Dashboard</h5>
 
 <div class="row">
+    <!-- Left -->
     <div class="col-lg-2">
         <div class="col-12">
-            {{ Designation }}
+            {{ Designation | uppercase }}
         </div>
         <div class="col-12">
             <img src="assets/balavijay01.jpg" width="100%" />
@@ -27,10 +28,10 @@
         <div class="col-12 text-center pt-2">
             Client
         </div>
-        <div class="col-12 text-center pt-2">
+        <div class="col-12 text-left pt-2">
             <ul class="list-group ">
                 <li class="list-group-item" *ngFor="let client of Clients">
-                    {{ client }}
+                    {{ client | slice:0:10 }} ...
                 </li>
                  
             </ul>
@@ -38,6 +39,7 @@
         </div>
 
     </div>
+    <!-- End Left -->
 
     <!-- Middle -->
     <div class="col-lg-6">
@@ -46,12 +48,18 @@
                 <div class="row mt-2">
                     <div class="col-6 text-left">
                         <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                                data-toggle="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" 
+                            type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" 
+                            
+                            >
                                 {{ Projects[0]}}
                             </button>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" *ngFor="let project of Projects"> {{ project }} </a>
+                                <a class="dropdown-item" (click)="onProjectChange($event)"
+                                    *ngFor="let project of Projects"> 
+                                    {{ project }} 
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -73,7 +81,7 @@
                         Project Briefing
                     </div>
                     <div class="col-12">
-                        Project Cost : {{ ProjectCost }} <br />
+                        Project Cost : {{ ProjectCost | currency:"USD" }} <br />
                         Current Expenditure : {{ CurrentExpenditure }} <br />
                         Available Funds: {{ AvailableFunds }} <br />
                     </div>
@@ -100,22 +108,48 @@
                 aria-expanded="false" aria-controls="collapseExample" >
                     {{ item.region }}
                 </button>
+
+                <div *ngIf="i==0; then firstTemplate; else secondTemplate;">
+
+                </div>
+
+                <ng-template #firstTemplate>
+                    <div class="collapse" [id]="'cardbody' + i " data-parent="#accordion1" [ngClass]="(i==0)? 'show' : ''" >
+                        <div class="card card-body">
+                            <div class="row">
+                                <div class="col-lg-2">ID</div>
+                                <div class="col-lg-6">Name</div>
+                                <div class="col-lg-4">Status</div>
+                            </div>
+                
+                            <div class="row" *ngFor="let member of item.members">
+                                <div class="col-lg-2"> {{ member.id }} </div>
+                                <div class="col-lg-6"> {{ member.name }} </div>
+                                <div class="col-lg-4"  [style.color]="(member.status == 'Unavailable')? 'red' : 'green' "> {{ member.status }} </div>
+                            </div>
+                        </div>
+                        </div>
+                </ng-template>
+
+                <ng-template #secondTemplate>
+                    <div class="collapse" [id]="'cardbody' + i " data-parent="#accordion1" [ngClass]="(i==0)? 'show' : ''" >
+                        <div class="card card-body">
+                            <div class="row">
+                                 
+                                <div class="col-lg-6">Name</div>
+                                <div class="col-lg-6">Status</div>
+                            </div>
+                
+                            <div class="row" *ngFor="let member of item.members">
+                                 
+                                <div class="col-lg-6"> {{ member.name }} </div>
+                                <div class="col-lg-6"  [style.color]="(member.status == 'Unavailable')? 'red' : 'green' "> {{ member.status }} </div>
+                            </div>
+                        </div>
+                        </div>
+                </ng-template>
              
-                <div class="collapse" [id]="'cardbody' + i " data-parent="#accordion1">
-                <div class="card card-body">
-                    <div class="row">
-                        <div class="col-lg-2">ID</div>
-                        <div class="col-lg-6">Name</div>
-                        <div class="col-lg-4">Status</div>
-                    </div>
-        
-                    <div class="row" *ngFor="let member of item.members">
-                        <div class="col-lg-2"> {{ member.id }} </div>
-                        <div class="col-lg-6"> {{ member.name }} </div>
-                        <div class="col-lg-4"> {{ member.status }} </div>
-                    </div>
-                </div>
-                </div>
+                
             </div>
 
             
