@@ -18,8 +18,12 @@ export class DashboardComponent implements OnInit {
   CurrentExpenditure: number;
   AvailableFunds: number;
 
+  Years : number[];
+  selectedYear: number;
+
   Clients: string[];
   Projects: string[];
+  SelectedProject: string;
   TeamMemberSummary: any[];
   TeamMembers: any[];
 
@@ -39,6 +43,11 @@ export class DashboardComponent implements OnInit {
     this.CurrentExpenditure     = 12121;
     this.AvailableFunds         = 1200;
 
+    this.Years = [
+      2020, 2019, 2018, 2017, 2016
+    ];
+    this.selectedYear = this.Years[0];
+
     this.Clients = [
       "ABC Infotech", "Brila Corporation", "Cabbies Chase"
     ];
@@ -46,6 +55,8 @@ export class DashboardComponent implements OnInit {
     this.Projects = [
       "Resource Mgmt System", "Network Mgmt System", "User Profile"
     ];
+
+    this.SelectedProject = this.Projects[0];
 
     this.TeamMemberSummary = [
       {region: "East", count: 100, notAvailable: 20},
@@ -95,26 +106,34 @@ export class DashboardComponent implements OnInit {
 
   onProjectChange($event) {
     
-
-    if($event.target.innerHTML.trim() == this.Projects[0] ) {
     
+    if($event.target.innerHTML.trim() == this.Projects[0] ) {
+      
       this.ProjectCost = 100;
       this.CurrentExpenditure = 110;
       this.AvailableFunds = -10;
+      this.SelectedProject = this.Projects[0];
 
     } else if($event.target.innerHTML.trim() == this.Projects[1] ) {
 
       this.ProjectCost = 200;
       this.CurrentExpenditure = 220;
       this.AvailableFunds = -20;
+      this.SelectedProject = this.Projects[1];
       
     } else if($event.target.innerHTML.trim() == this.Projects[2] ) {
 
       this.ProjectCost = 440;
       this.CurrentExpenditure = 220;
       this.AvailableFunds = 220;
+      this.SelectedProject = this.Projects[2];
       
     }  
-  }
+  };
+
+  onYearChange($event) {
+    console.log($event.target.innerHTML.trim());
+    this.selectedYear = $event.target.innerHTML.trim();
+  };
 
 }
