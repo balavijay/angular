@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DashboardService } from '../../dashboard.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -28,7 +29,7 @@ export class DashboardComponent implements OnInit {
   TeamMembers: any[];
 
 
-  constructor() { }
+  constructor(private dashboardService: DashboardService) { }
   
   ngOnInit(): void {
 
@@ -48,58 +49,15 @@ export class DashboardComponent implements OnInit {
     ];
     this.selectedYear = this.Years[0];
 
-    this.Clients = [
-      "ABC Infotech", "Brila Corporation", "Cabbies Chase"
-    ];
+    this.Clients = this.dashboardService.getClients();
 
-    this.Projects = [
-      "Resource Mgmt System", "Network Mgmt System", "User Profile"
-    ];
+    this.Projects = this.dashboardService.getProjects();
 
     this.SelectedProject = this.Projects[0];
 
-    this.TeamMemberSummary = [
-      {region: "East", count: 100, notAvailable: 20},
-      {region: "West", count: 10, notAvailable: 0},
-      {region: "North", count: 80, notAvailable: 10},
-      {region: "South", count: 20, notAvailable: 30}
-    ];
+    this.TeamMemberSummary = this.dashboardService.getTeamMembersSummary();
 
-    this.TeamMembers = [
-      {
-        region: "East", members: [
-          { id: "E1", name: "Lourd Mike", status: "Available"},
-          { id: "E2", name: "Albert Mike", status: "Unavailable"},
-          { id: "E3", name: "Charles Baggage", status: "Available"},
-
-        ]
-      },
-      {
-        region: "West", members: [
-          { id: "W1", name: "Lady Lira", status: "Available"},
-          { id: "W2", name: "Chris Pattison ", status: "Unavailable"},
-          { id: "W3", name: "Ngidi Lungi", status: "Available"},
-
-        ]
-      },
-      {
-        region: "North", members: [
-          { id: "N1", name: "Abel Morkel", status: "Available"},
-          { id: "N2", name: "Dale Styen", status: "Unavailable"},
-          { id: "N3", name: "Jacques Kallis", status: "Available"},
-          { id: "N4", name: "Mark Boucher", status: "Available"}
-
-        ]
-      },
-      {
-        region: "South", members: [
-          { id: "S1", name: "Mark Waugh", status: "Available"},
-          { id: "S2", name: "Steve Waugh", status: "Unavailable"},
-          { id: "S3", name: "Mark Taylor", status: "Available"},
-
-        ]
-      }
-    ];
+    this.TeamMembers = this.dashboardService.getTeamMembers();
 
 
   }
@@ -127,6 +85,13 @@ export class DashboardComponent implements OnInit {
       this.CurrentExpenditure = 220;
       this.AvailableFunds = 220;
       this.SelectedProject = this.Projects[2];
+      
+    } else if($event.target.innerHTML.trim() == this.Projects[3] ) {
+
+      this.ProjectCost = 4546677;
+      this.CurrentExpenditure = 2232323;
+      this.AvailableFunds = 121212;
+      this.SelectedProject = this.Projects[3];
       
     }  
   };

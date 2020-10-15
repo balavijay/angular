@@ -1,0 +1,18 @@
+[
+    {
+        "projectID" : 1,
+        "projectName" : "Front Office Mgmt System"
+    },
+    {
+        "projectID" : 2,
+        "projectName" : "Back Office Mgmt System"
+    },
+    {
+        "projectID" : 3,
+        "projectName" : "Network Mgmt System"
+    },
+    {
+        "projectID" : 4,
+        "projectName" : "Medical Mgmt System"
+    }
+]
